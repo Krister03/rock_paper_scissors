@@ -20,21 +20,34 @@ let computerScore = 0;
 function playRound(humanChoice, computerChoice) {
     alert(`Computer chose ${computerChoice}.`);
 
-    if (humanChoice === computerChoice) {
-        alert(`It's a tie! Both chose ${humanChoice}.`);
-    } else if (
-        (humanChoice === 'rock' && computerChoice === 'scissors') ||
-        (humanChoice === 'paper' && computerChoice === 'rock') ||
-        (humanChoice === 'scissors' && computerChoice === 'paper')
-    ) {
-        humanScore++;
-        alert(`You win! ${humanChoice} beats ${computerChoice}.`);
-    } else {
-        computerScore++;
-        alert(`You lose! ${computerChoice} beats ${humanChoice}.`);
-    }
+    const matchup = `${humanChoice}-${computerChoice}`;
 
-    alert(`Scores - You: ${humanScore}, Computer: ${computerScore}`);
+switch (matchup) {
+    case 'rock-rock':
+    case 'paper-paper':
+    case 'scissors-scissors':
+        alert(`It's a tie! Both chose ${humanChoice}.`);
+        break;
+
+    case 'rock-scissors':
+    case 'paper-rock':
+    case 'scissors-paper':
+        humanScore++;
+        alert(`You won the round! ${humanChoice} beats ${computerChoice}.`);
+        break;
+
+    case 'rock-paper':
+    case 'paper-scissors':
+    case 'scissors-rock':
+        computerScore++;
+        alert(`You lose the round! ${computerChoice} beats ${humanChoice}.`);
+        break;
+
+    default:
+        alert("Invalid input or unexpected error.");
+}
+
+alert(`Scores - You: ${humanScore}, Computer: ${computerScore}`);
 }
 
 function playGame() {
@@ -42,6 +55,7 @@ function playGame() {
     humanScore = 0;
     computerScore = 0;
 
+    // Main game function to play 5 rounds
     for (let i = 0; i < 5; i++) {
         const humanSelection = getHumanChoice();
         const computerSelection = getComputerChoice();
@@ -50,9 +64,9 @@ function playGame() {
 
     // Show final results
     if (humanScore > computerScore) {
-        alert(`Final Score - You: ${humanScore}, Computer: ${computerScore}\n🎉 You win the game!`);
+        alert(`Final Score - You: ${humanScore}, Computer: ${computerScore}\n🎉 You won the game!`);
     } else if (computerScore > humanScore) {
-        alert(`Final Score - You: ${humanScore}, Computer: ${computerScore}\n💀 Computer wins the game!`);
+        alert(`Final Score - You: ${humanScore}, Computer: ${computerScore}\n💀 Computer won the game!`);
     } else {
         alert(`Final Score - You: ${humanScore}, Computer: ${computerScore}\n🤝 It's a tie!`);
     }
